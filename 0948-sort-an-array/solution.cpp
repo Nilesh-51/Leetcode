@@ -1,36 +1,36 @@
 class Solution {
 public:
-    int partition(vector<int> &nums, int i, int j){
-        int pivotIndex = i;
-        int end = j;
-        i++;
-        
-        while(i<=j){
-            while(i<=end && nums[i] < nums[pivotIndex]){
+    vector<int> sortArray(vector<int>& nums) {
+        mergeSort(0,nums.size()-1,nums);
+        return nums;
+    }
+    void mergeSort(int l,int h,vector<int> &nums){
+        if(l<h){
+            int mid=(l+h)/2;
+            mergeSort(l,mid,nums);
+            mergeSort(mid+1,h,nums);
+            merge(l,mid,h,nums);
+        }
+    }
+    void merge(int l,int mid,int h,vector<int> &nums){
+        vector<int> b;
+        int i=l,j=mid+1;
+        while(i<=mid && j<=h){
+            if(nums[i]<nums[j]){
+                b.push_back(nums[i]);
                 i++;
             }
-            while(j >= pivotIndex && nums[j] > nums[pivotIndex]){
-                j--;
-            }
-            if(i<=j){
-                swap(nums[i++], nums[j--]);
+            else{
+                b.push_back(nums[j]);
+                j++;
             }
         }
-        swap(nums[pivotIndex], nums[j]);
-        return j;
-        
-    }
-    void quickSort(vector<int> &nums, int l, int r){
-        if(l<r){
-			//swapping element at index l with element at random index
-            swap(nums[l + rand() % (r -l + 1)], nums[l]);
-            int mid = partition(nums, l, r);
-            quickSort(nums, l, mid-1);
-            quickSort(nums, mid+1, r);
-        }
-    }
-    vector<int> sortArray(vector<int>& nums) {
-        quickSort(nums, 0, nums.size()-1);
-        return nums;
+        for(;j<=h;j++)
+        b.push_back(nums[j]);
+        for(;i<=mid;i++)
+        b.push_back(nums[i]);
+        int m=0;
+        for(int k=l;k<=h;k++)
+        nums[k]=b[m++];
     }
 };
