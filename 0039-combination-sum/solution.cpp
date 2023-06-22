@@ -3,21 +3,23 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<int> ds;
         vector<vector<int>> res;
-        combSum(candidates,0,target,ds,res);
+        cs(candidates,target,0,ds,res);
         return res;
     }
-    void combSum(vector<int>& arr,int ind,int target,vector<int> ds,vector<vector<int>>& res){
-        if(ind==arr.size()){
-            if(target==0){
-                res.push_back(ds);
-            }
+    void cs(vector<int> candidates, int target,int ind,vector<int> &ds,vector<vector<int>> &ans) {
+        if(candidates.size()==ind){
             return;
         }
-        if(target>=arr[ind]){
-            ds.push_back(arr[ind]);
-            combSum(arr,ind,target-arr[ind],ds,res);
+        if(target==0){
+            ans.push_back(ds);
+            return;
+        }
+        if(candidates[ind]<=target){
+            ds.push_back(candidates[ind]);
+            cs(candidates,target-candidates[ind],ind,ds,ans);
             ds.pop_back();
         }
-        combSum(arr,ind+1,target,ds,res);
-    }
+        cs(candidates,target,ind+1,ds,ans);
+
+}
 };
