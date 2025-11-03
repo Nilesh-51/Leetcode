@@ -2,11 +2,9 @@ class Solution {
 public:
     bool isValid(string s) {
         vector<char> st;
-        int n=s.length();
-        for(int i=0;i<n;i++){
-            if(s[i]=='(' || s[i]=='{' || s[i]=='['){
-                st.push_back(s[i]);
-            }
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='(' || s[i]=='[' || s[i]=='{')
+            st.push_back(s[i]);
             else{
                 if(st.empty())
                 return false;
@@ -21,11 +19,7 @@ public:
         return false;
     }
     bool isSame(char s1,char s2){
-        if(s1=='(' && s2==')')
-        return true;
-        if(s1=='{' && s2=='}')
-        return true;
-        if(s1=='[' && s2==']')
+        if(s1=='(' && s2==')' || s1=='[' && s2==']' || s1=='{' && s2=='}')
         return true;
         return false;
     }
