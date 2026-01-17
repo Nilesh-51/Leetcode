@@ -1,26 +1,18 @@
 func isAnagram(s string, t string) bool {
-    sLen := len(s)
-    tLen := len(t)
-    if sLen!=tLen {
+    if len(s) != len(t) {
         return false
     }
     mp := make(map[rune]int)
     for _, r := range s {
         mp[r]++
-    }//a=2,c=2
+    }
     for _, r := range t {
-        _, ok := mp[r]
-        if ok {
-            mp[r]--
-        } else{
+        if _, ok := mp[r]; ok && mp[r] != 0  {
+                mp[r]--
+        } else {
             return false
-        }
-        if mp[r]==0 {
-            delete(mp,r)
         }
     }
 
     return true
 }
-
-
